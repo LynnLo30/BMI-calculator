@@ -8,6 +8,7 @@
 $primary: #24936E;
 $secondary: #7ED4A5;
 $card-border-width: map-get($border-widths, 2);
+$card-border-radius: $border-radius-xl;
 
 @import "bootstrap/scss/bootstrap";
 
