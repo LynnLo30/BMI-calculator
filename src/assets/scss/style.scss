@@ -1,1 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Math&family=Noto+Sans+TC:wght@100..900&display=swap');
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+// override default variable
+$primary: #24936E;
+$secondary: #7ED4A5;
+$card-border-width: map-get($border-widths, 2);
+
 @import "bootstrap/scss/bootstrap";
+
+:root {
+  --bs-body-font-family: "Noto Sans TC", sans-serif;
+}
+
+.btn-primary {
+  @include button-variant($primary, $primary, $white,
+    $hover-color: $gray-800,
+    $active-color: $gray-800);
+}
+
+.btn-secondary {
+  @include button-variant($secondary, $secondary, $white,
+    $hover-color: $gray-800,
+    $active-color: $gray-800);
+}
+
+.calculator-box.card {
+  border: $card-border-width solid $primary;
+}
+
+.grade-card {
+  .card {
+    border: $card-border-width solid $secondary;
+  }
+}
