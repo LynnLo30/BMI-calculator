@@ -1,4 +1,23 @@
-<script setup></script>
+<script setup>
+  import { ref, computed } from 'vue'
+
+  const userHeight = ref(null)
+  const userWeight = ref(null)
+
+  const heightInMetersSquared = computed(() => { return (userHeight.value / 100) ** 2 })
+  const minWeight = computed(() => { return roundTo1dp(18.5 * heightInMetersSquared.value) })
+  const maxWeight = computed(() => { return roundTo1dp(24 * heightInMetersSquared.value) })
+
+  function roundTo1dp(num) {
+    return Math.round(num * 10) / 10
+  }
+
+  function calculateBMI() {
+    if (!userWeight.value || !heightInMetersSquared.value) return null
+
+    return roundTo1dp(userWeight.value / heightInMetersSquared.value)
+  }
+</script>
 
 <template>
   <div class="container position-relative">
@@ -12,16 +31,16 @@
         <form class="calculator-form">
           <div class="mb-3">
             <label for="height" class="form-label">身高（公分/ cm）</label>
-            <input type="number" class="form-control" id="height" min="40" max="272"
-              placeholder="請輸入身高">
+            <input v-model.number="userHeight" type="number" class="form-control" id="height" min="40"
+              max="272" placeholder="請輸入身高">
           </div>
           <div class="mb-5">
             <label for="weight" class="form-label">體重（公斤/ kg）</label>
-            <input type="number" class="form-control" id="weight" min="2" max="635"
-              placeholder="請輸入體重">
+            <input v-model.number="userWeight" type="number" class="form-control" id="weight" min="2"
+              max="635" placeholder="請輸入體重">
           </div>
           <div class="actions-control mx-auto">
-            <button type="submit" class="btn btn-primary mx-3">開始計算</button>
+            <button @click="calculateBMI" type="submit" class="btn btn-primary mx-3">開始計算</button>
             <button type="reset" class="btn btn-secondary mx-3">全部清除</button>
           </div>
         </form>
@@ -58,8 +77,9 @@
           </div>
         </div>
         <div class="resultData mx-auto">
-          <h6>你的 BMI 為 <span class="userBMI numberStyle">21.8</span></h6>
-          <h6>正常體重範圍：<span class="idealWeight numberStyle">53.5 ～ 69.3</span></h6>
+          <h6>你的 BMI 為 <span class="userBMI numberStyle">{{ calculateBMI() }}</span></h6>
+          <h6>正常體重範圍：<span class="idealWeight numberStyle">{{ minWeight }} ～ {{ maxWeight }}</span>
+          </h6>
         </div>
         <figure class="caption-text position-absolute bottom-0">
           <p class="text-secondary">18歲（含）以上成人BMI範圍值及體重對照表</p>
