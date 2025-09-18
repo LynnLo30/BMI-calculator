@@ -4,23 +4,29 @@
   const userHeight = ref(null)
   const userWeight = ref(null)
 
-  const heightInMetersSquared = computed(() => { return (userHeight.value / 100) ** 2 })
-  const minWeight = computed(() => { return roundTo1dp(18.5 * heightInMetersSquared.value) })
-  const maxWeight = computed(() => { return roundTo1dp(24 * heightInMetersSquared.value) })
+  const result = ref({
+    BMI: null,
+    minWeight: null,
+    maxWeight: null
+  })
+
+  const heightInMetersSquared = computed(() => (userHeight.value / 100) ** 2)
 
   function roundTo1dp(num) {
     return Math.round(num * 10) / 10
   }
 
   function calculateBMI() {
-    if (!userHeight.value || !userWeight.value) return null
+    const BMI = roundTo1dp(userWeight.value / heightInMetersSquared.value)
+    const [minWeight, maxWeight] = [18.5, 24].map(factor => roundTo1dp(factor * heightInMetersSquared.value))
 
-    return roundTo1dp(userWeight.value / heightInMetersSquared.value)
+    result.value = { BMI, minWeight, maxWeight }
   }
 
   const cleanData = () => {
     userHeight.value = null
     userWeight.value = null
+    result.value = { BMI: null, minWeight: null, maxWeight: null }
   }
 </script>
 
@@ -45,7 +51,8 @@
               min="2" max="635" placeholder="請輸入體重">
           </div>
           <div class="actions-control mx-auto">
-            <button @click="calculateBMI" type="submit" class="btn btn-primary mx-3">開始計算</button>
+            <button @click.prevent="calculateBMI" type="submit"
+              class="btn btn-primary mx-3">開始計算</button>
             <button @click="cleanData" type="reset" class="btn btn-secondary mx-3">全部清除</button>
           </div>
         </form>
@@ -82,8 +89,9 @@
           </div>
         </div>
         <div class="resultData mx-auto">
-          <h6>你的 BMI 為 <span class="userBMI numberStyle">{{ calculateBMI() }}</span></h6>
-          <h6>正常體重範圍：<span class="idealWeight numberStyle">{{ minWeight }} ～ {{ maxWeight }}</span>
+          <h6>你的 BMI 為 <span class="userBMI numberStyle">{{ result.BMI }}</span></h6>
+          <h6>正常體重範圍：<span class="idealWeight numberStyle">{{ result.minWeight }} ～ {{
+            result.maxWeight }}</span>
           </h6>
         </div>
         <figure class="caption-text position-absolute bottom-0">
