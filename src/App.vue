@@ -13,9 +13,14 @@
   }
 
   function calculateBMI() {
-    if (!userWeight.value || !heightInMetersSquared.value) return null
+    if (!userHeight.value || !userWeight.value) return null
 
     return roundTo1dp(userWeight.value / heightInMetersSquared.value)
+  }
+
+  const cleanData = () => {
+    userHeight.value = null
+    userWeight.value = null
   }
 </script>
 
@@ -31,17 +36,17 @@
         <form class="calculator-form">
           <div class="mb-3">
             <label for="height" class="form-label">身高（公分/ cm）</label>
-            <input v-model.number="userHeight" type="number" class="form-control" id="height" min="40"
-              max="272" placeholder="請輸入身高">
+            <input v-model.number="userHeight" type="number" class="form-control" id="height"
+              min="40" max="272" placeholder="請輸入身高">
           </div>
           <div class="mb-5">
             <label for="weight" class="form-label">體重（公斤/ kg）</label>
-            <input v-model.number="userWeight" type="number" class="form-control" id="weight" min="2"
-              max="635" placeholder="請輸入體重">
+            <input v-model.number="userWeight" type="number" class="form-control" id="weight"
+              min="2" max="635" placeholder="請輸入體重">
           </div>
           <div class="actions-control mx-auto">
             <button @click="calculateBMI" type="submit" class="btn btn-primary mx-3">開始計算</button>
-            <button type="reset" class="btn btn-secondary mx-3">全部清除</button>
+            <button @click="cleanData" type="reset" class="btn btn-secondary mx-3">全部清除</button>
           </div>
         </form>
       </div>
