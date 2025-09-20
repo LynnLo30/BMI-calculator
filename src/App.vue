@@ -3,7 +3,7 @@
 
   const userHeight = ref(null)
   const userWeight = ref(null)
-
+  const isShow = ref(false)
   const result = ref({
     BMI: null,
     minWeight: null,
@@ -23,10 +23,20 @@
     result.value = { BMI, minWeight, maxWeight }
   }
 
+  function showResult() {
+    if (userHeight.value > 40 && userWeight.value > 2) {
+      calculateBMI()
+      isShow.value = true
+    } else {
+      alert('請輸入正確的身高與體重')
+    }
+  }
+
   const cleanData = () => {
     userHeight.value = null
     userWeight.value = null
     result.value = { BMI: null, minWeight: null, maxWeight: null }
+    isShow.value = false
   }
 </script>
 
@@ -51,7 +61,7 @@
               min="2" max="635" placeholder="請輸入體重">
           </div>
           <div class="actions-control mx-auto">
-            <button @click.prevent="calculateBMI" type="submit"
+            <button @click.prevent="showResult" type="submit"
               class="btn btn-primary mx-3">開始計算</button>
             <button @click="cleanData" type="reset" class="btn btn-secondary mx-3">全部清除</button>
           </div>
@@ -88,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="resultData mx-auto">
+        <div v-if="isShow" class="resultData mx-auto">
           <h6>你的 BMI 為 <span class="userBMI numberStyle">{{ result.BMI }}</span></h6>
           <h6>正常體重範圍：<span class="idealWeight numberStyle">{{ result.minWeight }} ～ {{
             result.maxWeight }}</span>
