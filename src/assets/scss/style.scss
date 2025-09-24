@@ -35,5 +35,9 @@ $card-border-radius: $border-radius-xl;
 .grade-card {
   .card {
     border: $card-border-width solid $secondary;
+
+    &.-highlight {
+      border: $card-border-width solid $primary;
+    }
   }
 }

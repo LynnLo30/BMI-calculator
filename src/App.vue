@@ -11,6 +11,29 @@
   })
   const currentGrade = ref(null)
 
+  const BMIGrades = [
+    {
+      label: "underweight",
+      text: '體重過輕',
+      rangeTxt: '<small>BMI </small>&lt; 18.5'
+    },
+    {
+      label: "normalWeight",
+      text: '健康體重',
+      rangeTxt: '18.5 &le;<small> BMI </small>&lt; 24 '
+    },
+    {
+      label: "overweight",
+      text: '體重過重',
+      rangeTxt: '24 &le;<small> BMI </small>&lt; 27'
+    },
+    {
+      label: "obesity",
+      text: '肥胖',
+      rangeTxt: '<small>BMI </small>&ge; 27'
+    }
+  ]
+
   const heightInMetersSquared = computed(() => (userHeight.value / 100) ** 2)
 
   function roundTo1dp(num) {
@@ -82,32 +105,13 @@
       </div>
       <div class="result-box col-4 d-flex flex-column">
         <div class="grade-card">
-          <div class="underweight card">
+          <div class="card" v-for="grade in BMIGrades" :key="grade.label" :class="[
+            grade.label,
+            currentGrade ? (currentGrade === grade.label ? '-highlight' : 'd-none') : ''
+          ]">
             <div class="card-body row align-items-center mx-1">
-              <p class="card-title col">BMI<span class="numberStyle"> &lt; 18.5</span></p>
-              <p class="card-text col text-center">體重過輕</p>
-            </div>
-          </div>
-          <div class="normalWeight card">
-            <div class="card-body row align-items-center mx-1">
-              <p class="card-title col"><span class="numberStyle">18.5 &le; </span>BMI<span
-                  class="numberStyle"> &lt; 24</span>
-              </p>
-              <p class="card-text col text-center">健康體重</p>
-            </div>
-          </div>
-          <div class="overweight card">
-            <div class="card-body row align-items-center mx-1">
-              <p class="card-title col"><span class="numberStyle">24 &le; </span>BMI<span
-                  class="numberStyle"> &lt; 27</span>
-              </p>
-              <p class="card-text col text-center">體重過重</p>
-            </div>
-          </div>
-          <div class="obesity card">
-            <div class="card-body row align-items-center mx-1">
-              <p class="card-title col">BMI<span class="numberStyle"> &ge; 27</span></p>
-              <p class="card-text col text-center">肥胖</p>
+              <p class="card-title col m-0 numberStyle" v-html="grade.rangeTxt"></p>
+              <p class="card-text col text-center">{{ grade.text }}</p>
             </div>
           </div>
         </div>
@@ -129,6 +133,10 @@
 </template>
 
 <style lang="scss" scoped>
+  .-highlight {
+    background-color: #7ED4A5;
+  }
+
   .numberStyle {
     font-family: "Noto Sans Math", sans-serif;
     font-size: 1.22rem;
@@ -148,9 +156,15 @@
       min-height: 4.5rem;
 
       .card-title {
-        margin: 0;
+        padding: 0 .5rem;
       }
     }
+  }
+
+  .resultData {
+    position: absolute;
+    top: 55%;
+    left: 65%;
   }
 
   .caption-text,
