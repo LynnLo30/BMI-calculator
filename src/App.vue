@@ -9,6 +9,7 @@
     minWeight: null,
     maxWeight: null
   })
+  const currentGrade = ref(null)
 
   const heightInMetersSquared = computed(() => (userHeight.value / 100) ** 2)
 
@@ -23,9 +24,22 @@
     result.value = { BMI, minWeight, maxWeight }
   }
 
+  function getBMIGrade(bmi) {
+    if (bmi < 18.5) {
+      return 'underweight'
+    } else if (bmi >= 18.5 && bmi < 24) {
+      return 'normalWeight'
+    } else if (bmi >= 24 && bmi < 27) {
+      return 'overweight'
+    } else if (bmi >= 27) {
+      return 'obesity'
+    }
+  }
+
   function showResult() {
     if (userHeight.value > 40 && userWeight.value > 2) {
       calculateBMI()
+      currentGrade.value = getBMIGrade(result.value.BMI)
       isShow.value = true
     } else {
       alert('請輸入正確的身高與體重')
@@ -33,8 +47,7 @@
   }
 
   const cleanData = () => {
-    userHeight.value = null
-    userWeight.value = null
+    [userHeight, userWeight, currentGrade].forEach(i => i.value = null)
     result.value = { BMI: null, minWeight: null, maxWeight: null }
     isShow.value = false
   }
@@ -116,10 +129,6 @@
 </template>
 
 <style lang="scss" scoped>
-  // * {
-  //   outline: 1px solid salmon;
-  // }
-
   .numberStyle {
     font-family: "Noto Sans Math", sans-serif;
     font-size: 1.22rem;
@@ -132,10 +141,10 @@
   .grade-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     height: 65vh;
 
-    .card {
+    >.card {
       min-height: 4.5rem;
 
       .card-title {
