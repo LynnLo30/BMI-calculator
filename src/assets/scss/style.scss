@@ -38,6 +38,17 @@ $card-border-radius: $border-radius-xl;
 
     &.-highlight {
       border: $card-border-width solid $primary;
+      background-color: $secondary;
+    }
+  }
+
+  .underweight,
+  .overweight,
+  .obesity {
+
+    &.-highlight {
+      border: $card-border-width solid $yellow-500;
+      background-color: $yellow-200;
     }
   }
 }

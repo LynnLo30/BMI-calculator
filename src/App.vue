@@ -104,7 +104,7 @@
         </form>
       </div>
       <div class="result-box col-4 d-flex flex-column">
-        <div class="grade-card">
+        <div class="grade-card d-flex flex-column justify-content-evenly">
           <div class="card" v-for="grade in BMIGrades" :key="grade.label" :class="[
             grade.label,
             currentGrade ? (currentGrade === grade.label ? '-highlight' : 'd-none') : ''
@@ -150,7 +150,6 @@
   }
 
   .-highlight {
-    background-color: #7ED4A5;
     animation: slide-in 0.8s ease-in-out;
   }
 
@@ -164,9 +163,6 @@
   }
 
   .grade-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
     height: 65vh;
 
     >.card {
