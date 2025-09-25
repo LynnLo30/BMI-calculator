@@ -133,8 +133,25 @@
 </template>
 
 <style lang="scss" scoped>
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    60% {
+      opacity: 1;
+      transform: translateY(-5px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
   .-highlight {
     background-color: #7ED4A5;
+    animation: slide-in 0.8s ease-in-out;
   }
 
   .numberStyle {
@@ -165,6 +182,7 @@
     position: absolute;
     top: 55%;
     left: 65%;
+    animation: slide-in 0.8s ease-in-out;
   }
 
   .caption-text,
