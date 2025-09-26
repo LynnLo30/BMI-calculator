@@ -1,35 +1,22 @@
-# vue-bmi-calculator
+# 🧮 BMI Calculator
 
-This template should help get you started developing with Vue 3 in Vite.
+---
 
-## Recommended IDE Setup
+[Live Demo](https://lynnlo30.github.io/BMI-calculator/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 功能特色
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- 簡潔直覺的 UI
+- 即時計算 BMI，顯示小數點一位結果
+- 顯示健康體重範圍（自動計算下限與上限）
 
-## Project Setup
+---
 
-```sh
-npm install
-```
+## 技術架構
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- Vue / Vite
+- Bootstrap / CSS (SCSS)
+- JavaScript
+- GitHub Pages 部署
