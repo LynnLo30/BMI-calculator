@@ -42,7 +42,8 @@
 
   function calculateBMI() {
     const BMI = roundTo1dp(userWeight.value / heightInMetersSquared.value)
-    const [minWeight, maxWeight] = [18.5, 24].map(factor => roundTo1dp(factor * heightInMetersSquared.value))
+    const minWeight = roundTo1dp(18.5 * heightInMetersSquared.value)
+    const maxWeight = roundTo1dp(24 * heightInMetersSquared.value - 0.1)
 
     result.value = { BMI, minWeight, maxWeight }
   }
@@ -69,7 +70,7 @@
     }
   }
 
-  const cleanData = () => {
+  function cleanData() {
     [userHeight, userWeight, currentGrade].forEach(i => i.value = null)
     result.value = { BMI: null, minWeight: null, maxWeight: null }
     isShow.value = false
