@@ -78,7 +78,7 @@
 </script>
 
 <template>
-  <div class="container position-relative">
+  <div class="container position-relative vh-100 d-flex justify-content-center align-items-center">
     <div class="row justify-content-center">
       <div class="calculator-box col-6 card p-5">
         <div class="bmi-header mb-3">
@@ -104,7 +104,7 @@
           </div>
         </form>
       </div>
-      <div class="result-box col-4 d-flex flex-column">
+      <div class="result-box col-4 d-flex flex-column justify-content-between">
         <div class="grade-card d-flex flex-column justify-content-evenly">
           <div class="card" v-for="grade in BMIGrades" :key="grade.label" :class="[
             grade.label,
@@ -122,7 +122,7 @@
             result.maxWeight }}</span>
           </h6>
         </div>
-        <figure class="caption-text position-absolute bottom-0">
+        <figure class="caption-text">
           <p class="text-secondary">18歲（含）以上成人BMI範圍值及體重對照表</p>
           <figcaption class="blockquote-footer">
             資料來源： <cite title="Source Title">衛生福利部國民健康署</cite>
