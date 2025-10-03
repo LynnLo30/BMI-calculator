@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @keyframes slide-in {
     0% {
       opacity: 0;
