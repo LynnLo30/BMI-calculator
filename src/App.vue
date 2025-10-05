@@ -78,7 +78,7 @@
 </script>
 
 <template>
-  <div class="container position-relative vh-100 d-flex justify-content-center align-items-center">
+  <div class="container vh-100 d-flex justify-content-center align-items-center">
     <div class="row justify-content-evenly">
       <div class="calculator-box col-12 col-md-6 card p-5">
         <div class="bmi-header mb-3">
@@ -104,7 +104,7 @@
           </div>
         </form>
       </div>
-      <div class="result-box col-12 col-md-4 d-flex flex-column justify-content-between">
+      <div class="result-box position-relative col-12 col-md-4 d-flex flex-column justify-content-between">
         <div class="grade-card d-flex flex-column justify-content-evenly">
           <div class="card" v-for="grade in BMIGrades" :key="grade.label" :class="[
             grade.label,
@@ -117,15 +117,17 @@
             </div>
           </div>
         </div>
-        <div v-if="isShow" class="resultData mx-auto">
-          <p class="fz-6 mb-2">你的 BMI 為
-            <span class="userBMI numberStyle">{{ result.BMI }}</span>
-          </p>
-          <p class="fz-6">正常體重範圍：
-            <span class="idealWeight numberStyle">
-              {{ result.minWeight }} ～ {{ result.maxWeight }}
-            </span>
-          </p>
+        <div v-if="isShow" class="resultDataWrapper">
+          <div class="resultData">
+            <p class="fz-6 mb-2">你的 BMI 為
+              <span class="userBMI numberStyle">{{ result.BMI }}</span>
+            </p>
+            <p class="fz-6">正常體重範圍：
+              <span class="idealWeight numberStyle">
+                {{ result.minWeight }} ～ {{ result.maxWeight }}
+              </span>
+            </p>
+          </div>
         </div>
         <figure class="caption-text">
           <p class="text-secondary">18歲（含）以上成人BMI範圍值及體重對照表</p>
@@ -184,10 +186,15 @@
     }
   }
 
-  .resultData {
+  .resultDataWrapper {
     position: absolute;
-    top: 55%;
-    left: 65%;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+  }
+
+  .resultData {
     animation: slide-in 0.8s ease-in-out;
   }
 
