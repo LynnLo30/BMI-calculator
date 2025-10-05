@@ -78,7 +78,7 @@
 </script>
 
 <template>
-  <div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="container d-flex justify-content-center align-items-center">
     <div class="row justify-content-evenly">
       <div class="calculator-box col-12 col-md-6 card p-5">
         <div class="bmi-header mb-3">
@@ -117,7 +117,7 @@
             </div>
           </div>
         </div>
-        <div v-if="isShow" class="resultDataWrapper">
+        <div v-if="isShow" class="resultDataWrapper text-center mx-auto">
           <div class="resultData">
             <p class="fz-6 mb-2">你的 BMI 為
               <span class="userBMI numberStyle">{{ result.BMI }}</span>
@@ -166,8 +166,24 @@
     font-size: 1.22rem;
   }
 
-  .actions-control {
-    width: fit-content;
+  .container {
+    @include media-breakpoint-down(md) {
+      padding: 5%;
+    }
+
+    @include media-breakpoint-up(md) {
+      height: 100vh;
+    }
+  }
+
+  .calculator-box {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 10%;
+    }
+
+    .actions-control {
+      width: fit-content;
+    }
   }
 
   .grade-card {
@@ -175,6 +191,10 @@
 
     >.card {
       min-height: 4.5rem;
+
+      @include media-breakpoint-down(md) {
+        margin: 1rem 0;
+      }
 
       .card-title {
         padding: 0 .5rem;
@@ -187,11 +207,18 @@
   }
 
   .resultDataWrapper {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 65%;
+
+    @include media-breakpoint-down(md) {
+      margin: 1rem 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   .resultData {
